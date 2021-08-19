@@ -7,4 +7,4 @@ COPY entrypoint.sh backup_script.sh /bin/
 
 ENTRYPOINT ["/bin/entrypoint.sh"]
 
-CMD ["crond", "-f", "-l", "8"]
+CMD ["crond", "-f", "-l", "2"]

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-BACKUP_DELAY=5
+BACKUP_DELAY=1
 CRONTAB_FILE='/etc/crontabs/root'
 
 current_minute=$(date +"%M")
