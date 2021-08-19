@@ -1,0 +1,12 @@
+version: "3.0"
+
+services:
+    borgclient1:
+        container_name: borgclient1
+        image: valmati/borgclient
+        hostname: client1
+        environment:
+          - TZ=Europe/Madrid
+        volumes:
+            - ./known_hosts_1:/root/.ssh  # TODO Cambiar la ruta en la que se guardan los known hosts
+            - ./log1/:/log
