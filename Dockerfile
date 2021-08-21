@@ -1,10 +1,10 @@
 FROM alpine:3.14.1
 
-RUN apk add --update openssh-client borgbackup tzdata && \
+RUN apk add --update openssh-client borgbackup tzdata curl && \
     rm -rf /tmp/* /var/cache/apk/*
 
-COPY entrypoint.sh backup_script.sh /bin/
+COPY entrypoint.sh borg.sh /bin/
 
-ENTRYPOINT ["/bin/entrypoint.sh"]
+ENTRYPOINT [ "/bin/entrypoint.sh" ]
 
-CMD ["crond", "-f", "-l", "2"]
+CMD [ "crond", "-f", "-l", "2" ]
