@@ -1,6 +1,6 @@
 #!/bin/sh
 
-BACKUP_DELAY=1
+BACKUP_DELAY=5
 CRONTAB_FILE='/etc/crontabs/root'
 
 current_hour=$(date +"%H")

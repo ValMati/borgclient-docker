@@ -1,12 +1,21 @@
 version: "3.0"
 
 services:
-    borgclient1:
-        container_name: borgclient1
+    borgclient:
+        container_name: borgclient
         image: valmati/borgclient
-        hostname: client1
+        hostname: client
         environment:
           - TZ=Europe/Madrid
+          - BORG_SERVER=borgserver
+          - PREFIX=ClientPrefix
+          - BOT_TOKEN=123:ABC
+          - CHAT_ID=-123
+          - PASSPHRASE=passphrase
+          - KEEP_HOURLY=4
+          - KEEP_DAILY=7
+          - KEEP_WEEKLY=4
+          - KEEP_MONTHLY=6
         volumes:
-            - ./known_hosts_1:/root/.ssh  # TODO Cambiar la ruta en la que se guardan los known hosts
+            - ./ssh_keys:/root/.ssh
             - ./log1/:/log

@@ -50,7 +50,7 @@ append_log "${message}"
 borg create --stats --list --filter=E --files-cache ctime,size --compression auto,lzma,9 ::${CURRENT_ARCHIVE} /etc >> ${LOG_FILE} 2>&1
 
 create_exit=$?
-message="Create finished with code: ${create_exit}"
+info "Create finished with code: ${create_exit}"
 
 # Prune
 if [ ${create_exit} -eq 0 ]; then
@@ -61,7 +61,7 @@ if [ ${create_exit} -eq 0 ]; then
     borg prune -v -s --list --prefix ${PREFIX}- --keep-hourly=${KEEP_HOURLY} --keep-daily=${KEEP_DAILY} --keep-weekly=${KEEP_WEEKLY} --keep-monthly=${KEEP_MONTHLY} $REP >> ${LOG_FILE} 2>&1
 
     prune_exit=$?
-    message="Prune finished with code: ${create_exit}"
+    info "Prune finished with code: ${create_exit}"
 fi
 
 # Use highest exit code as global exit code
@@ -70,7 +70,7 @@ global_exit=$(( create_exit > prune_exit ? create_exit : prune_exit ))
 if [ ${global_exit} -eq 0 ]; then
     message="Backup and Prune finished #OK (${CURRENT_ARCHIVE})"
 elif [ ${global_exit} -eq 1 ]; then
-    message="Backup and/or Prune finished with #WARNINGS (${CURRENT_ARCHIVE})
+    message="Backup and/or Prune finished with #WARNINGS (${CURRENT_ARCHIVE})"
 else
     message="Backup and/or Prune finished with #ERRORS (${CURRENT_ARCHIVE})"
 fi
