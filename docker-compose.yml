@@ -17,5 +17,5 @@ services:
           - KEEP_WEEKLY=4
           - KEEP_MONTHLY=6
         volumes:
-            - ./ssh_keys:/root/.ssh
-            - ./log1/:/log
+          - ./ssh_keys:/root/.ssh
+          - ./log/:/log
