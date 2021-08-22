@@ -47,7 +47,7 @@ message="Starting borg create (${CURRENT_ARCHIVE})"
 info ${message}
 send_telegram_message ${message}
 append_log "${message}"
-borg create --stats --list --filter=E --files-cache ctime,size --compression auto,lzma,9 ::${CURRENT_ARCHIVE} /etc >> ${LOG_FILE} 2>&1
+borg create --stats --list --filter=E --files-cache ctime,size --compression auto,lzma,9 ::${CURRENT_ARCHIVE} ${SOURCE} >> ${LOG_FILE} 2>&1
 
 create_exit=$?
 info "Create finished with code: ${create_exit}"
