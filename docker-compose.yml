@@ -21,3 +21,4 @@ services:
           - ./ssh_keys:/root/.ssh
           - ./log/:/log
           - ./config:/borgconfig
+        restart: unless-stopped
