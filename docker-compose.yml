@@ -20,3 +20,4 @@ services:
         volumes:
           - ./ssh_keys:/root/.ssh
           - ./log/:/log
+          - ./config:/borgconfig

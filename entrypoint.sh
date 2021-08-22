@@ -1,6 +1,7 @@
 #!/bin/sh
 
 HOST_KEYS_DIR='/root/.ssh'
+EXCLUDE_FILE='/borgconfig/exclude.txt'
 BACKUP_DELAY=5
 CRONTAB_FILE='/etc/crontabs/root'
 
@@ -11,6 +12,13 @@ echo ">> Generating host keys if is necesary"
 if [ ! -f "${HOST_KEYS_DIR}/id_rsa" ]; then
 	ssh-keygen -f ${HOST_KEYS_DIR}/id_rsa -N '' -t rsa
 fi
+
+# Check exclude file
+echo ">> Checking if exclude file exists"
+if [ ! -f ${EXCLUDE_FILE} ]; then
+	echo "Exclude file does not exists, creating..."
+	touch ${EXCLUDE_FILE}
+fi 
 
 # Add bakup task to crontab
 echo '>> Adding backup task to crontab...'
