@@ -9,6 +9,7 @@ services:
           - TZ=Europe/Madrid
           - BORG_SERVER=borgserver
           - PREFIX=ClientPrefix
+          - SOURCE=/home /otherPath
           - BOT_TOKEN=123:ABC
           - CHAT_ID=-123
           - PASSPHRASE=passphrase
@@ -17,5 +18,6 @@ services:
           - KEEP_WEEKLY=4
           - KEEP_MONTHLY=6
         volumes:
-            - ./ssh_keys:/root/.ssh
-            - ./log1/:/log
+          - ./ssh_keys:/root/.ssh
+          - ./log/:/log
+          - ./config:/borgconfig
