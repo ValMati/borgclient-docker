@@ -7,7 +7,7 @@ LOG_FILE='/log/'${CURRENT_ARCHIVE}'.log'
 
 # Export BorgBackup variables
 export BORG_REPO='ssh://'${BORG_USER}'@'${BORG_SERVER}'/./backup'
-export BORG_PASSPHRASE='passphrase'
+export BORG_PASSPHRASE=BORG_PASSPHRASE
 
 # Some helpers
 info() { printf "%s: %s\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$*"; }
