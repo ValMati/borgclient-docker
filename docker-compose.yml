@@ -9,7 +9,6 @@ services:
           - TZ=Europe/Madrid
           - BORG_SERVER=borgserver
           - PREFIX=ClientPrefix
-          - SOURCE=/home /otherPath
           - BOT_TOKEN=123:ABC
           - CHAT_ID=-123
           - PASSPHRASE=passphrase
@@ -21,4 +20,5 @@ services:
           - ./ssh_keys:/root/.ssh
           - ./log/:/log
           - ./config:/borgconfig
+          - /path_to_backup:/backup:ro
         restart: unless-stopped

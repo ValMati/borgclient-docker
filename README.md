@@ -33,7 +33,6 @@ The following are the environment variables to be defined:
 | TZ            | Time Zone | Europe/Madrid |
 | BORG_SERVER   | IP or domain of the server on which the backups will be made | 192.168.1.200 |
 | PREFIX        | Prefix with which the files in the backup will be created | ClientPrefix |
-| SOURCE        | Space-separated list of paths to be backed up | /home /otherPath |
 | BOT_TOKEN     | Token of the bot through which we will receive Telegram notifications. | 123:ABC |
 | CHAT_ID       | Identifier of the user or group that will receive Telegram notifications.| -123 |
 | PASSPHRASE    | Repository backup passphrase | passphrase |
@@ -60,9 +59,13 @@ In this volume there are two things:
 
 The volume where the container generates the logs.
 
-#### Backups (/borgconfig/)
+#### Borg Config (/borgconfig/)
 
 In this volume the container look for a file *exclude.txt*, a file with exclude patterns from EXCLUDEFILE, one per line.
+
+#### Backup (/backup/)
+
+This volume is the source to backup.
 
 ## Inspired on
 

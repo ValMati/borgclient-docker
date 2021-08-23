@@ -6,8 +6,8 @@ CURRENT_ARCHIVE=${PREFIX}'-'$(date +"%Y-%m-%d_%H:%M:%S")
 LOG_FILE='/log/'${CURRENT_ARCHIVE}'.log'
 
 # Export BorgBackup variables
-export BORG_REPO='ssh://'${BORG_USER}'@'${BORG_SERVER}'/./backup'
-export BORG_PASSPHRASE=PASSPHRASE
+export BORG_REPO='ssh://'${BORG_USER}'@'${BORG_SERVER}'/./'
+export BORG_PASSPHRASE=${PASSPHRASE}
 
 # Some helpers
 info() { printf "%s: %s\n" "$(date +"%Y-%m-%d %H:%M:%S")" "$*"; }
@@ -47,7 +47,7 @@ message="Starting borg create (${CURRENT_ARCHIVE})"
 info ${message}
 send_telegram_message ${message}
 append_log "${message}"
-borg create --stats --list --filter=E --files-cache ctime,size --exclude-from /borgconfig/exclude.txt --compression auto,lzma,9 ::${CURRENT_ARCHIVE} ${SOURCE} >> ${LOG_FILE} 2>&1
+borg create --stats --list --filter=E --files-cache ctime,size --exclude-from /borgconfig/exclude.txt --compression auto,lzma,9 ::${CURRENT_ARCHIVE} /backup/* >> ${LOG_FILE} 2>&1
 
 create_exit=$?
 info "Create finished with code: ${create_exit}"
@@ -61,7 +61,7 @@ if [ ${create_exit} -eq 0 ]; then
     borg prune -v -s --list --prefix ${PREFIX}- --keep-hourly=${KEEP_HOURLY} --keep-daily=${KEEP_DAILY} --keep-weekly=${KEEP_WEEKLY} --keep-monthly=${KEEP_MONTHLY} $REP >> ${LOG_FILE} 2>&1
 
     prune_exit=$?
-    info "Prune finished with code: ${create_exit}"
+    info "Prune finished with code: ${prune_exit}"
 fi
 
 # Use highest exit code as global exit code
