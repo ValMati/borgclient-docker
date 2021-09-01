@@ -6,7 +6,7 @@ CURRENT_ARCHIVE=${PREFIX}'-'$(date +"%Y-%m-%d_%H:%M:%S")
 LOG_FILE='/log/'${CURRENT_ARCHIVE}'.log'
 
 # Export BorgBackup variables
-export BORG_REPO='ssh://'${BORG_USER}'@'${BORG_SERVER}'/./'
+export BORG_REPO='ssh://'${BORG_USER}'@'${BORG_SERVER}'/'${REPO_PATH}
 export BORG_PASSPHRASE=${PASSPHRASE}
 
 # Some helpers

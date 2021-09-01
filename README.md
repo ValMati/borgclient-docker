@@ -36,6 +36,7 @@ The following are the environment variables to be defined:
 | BOT_TOKEN     | Token of the bot through which we will receive Telegram notifications. | 123:ABC |
 | CHAT_ID       | Identifier of the user or group that will receive Telegram notifications.| -123 |
 | PASSPHRASE    | Repository backup passphrase | passphrase |
+| REPO_PATH     | Path of the repository inside the server. This path can be relative or absolute. It should be noted that on the server access may be restricted by *--restrict-to-path* | ./ |
 | KEEP_HOURLY   | * | 4 |
 | KEEP_DAILY    | * | 7 |
 | KEEP_WEEKLY   | * | 4 |
