@@ -4,7 +4,7 @@ HOST_KEYS_DIR='/root/.ssh'
 EXCLUDE_FILE='/borgconfig/exclude.txt'
 BACKUP_DELAY=5
 CRONTAB_FILE='/etc/crontabs/root'
-BORG_SCRIPT='/bin/borg.sh'
+BORG_SCRIPT='/bin/borg_backup.sh'
 
 echo "> Configuring borg client"
 
@@ -20,6 +20,9 @@ if [ ! -f ${EXCLUDE_FILE} ]; then
 	echo "Exclude file does not exists, creating..."
     touch ${EXCLUDE_FILE}
 fi
+
+# Changing scripts permissions
+chmod a+x /bin/borg_backup.sh /bin/borg_init.sh
 
 # Add bakup task to crontab
 echo '>> Adding backup task to crontab...'
@@ -41,7 +44,7 @@ if [ "${grep}" = "" ]; then
 else
     echo "Updating..."
     echo -e "${borg_task}"
-    sed -i '/borg.sh/c'${borg_task} ${CRONTAB_FILE}
+    sed -i '/borg_backup.sh/c'${borg_task} ${CRONTAB_FILE}
 fi
 
 exec "$@"
