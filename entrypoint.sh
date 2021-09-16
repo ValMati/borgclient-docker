@@ -4,7 +4,7 @@ HOST_KEYS_DIR='/root/.ssh'
 EXCLUDE_FILE='/borgconfig/exclude.txt'
 BACKUP_DELAY=5
 CRONTAB_FILE='/etc/crontabs/root'
-BORG_SCRIPT='/bin/borg.sh'
+BORG_SCRIPT='/bin/borg_backup.sh'
 
 echo "> Configuring borg client"
 
@@ -21,6 +21,9 @@ if [ ! -f ${EXCLUDE_FILE} ]; then
     touch ${EXCLUDE_FILE}
 fi
 
+# Changing scripts permissions
+chmod a+x /bin/borg_backup.sh /bin/borg_init.sh
+
 # Add bakup task to crontab
 echo '>> Adding backup task to crontab...'
 
@@ -33,7 +36,34 @@ current_minute=${current_minute#"${current_minute%%[!0]*}"}
 future_hour=$(( (${current_hour} + ((${current_minute} + ${BACKUP_DELAY}) / 60)) % 24 ))
 future_minute=$(( (${current_minute} + ${BACKUP_DELAY}) % 60 ))
 
-borg_task=${future_minute}'\t'${future_hour}'\t*\t*\t*\t'${BORG_SCRIPT}
+borg_task=${future_minute}'\t'
+
+case ${FREQUENCY} in
+    1)
+        borg_task=${borg_task}'*'
+        ;;
+    2 | 3 | 4 | 6 | 8 | 12)
+        if [ $(( ${future_hour} % ${FREQUENCY} )) -eq 0 ]; then
+            borg_task=${borg_task}'*/'${FREQUENCY}
+        else
+            borg_task=${borg_task}${future_hour}
+            cont=2
+            max=$(( 24 / ${FREQUENCY} ))
+            while [ ${cont} -le ${max} ]
+            do
+                future_hour=$(( (${future_hour} + 2) % 24 ))
+                borg_task=${borg_task}','${future_hour}
+                cont=$(( ${cont} + 1 ))
+            done
+        fi
+        ;;
+    *)
+        borg_task=${borg_task}${future_hour}
+        ;;
+esac
+
+borg_task=${borg_task}'\t*\t*\t*\t'${BORG_SCRIPT}
+
 grep=$(grep "${BORG_SCRIPT}" ${CRONTAB_FILE})
 if [ "${grep}" = "" ]; then
 	echo "Adding..."
@@ -41,7 +71,7 @@ if [ "${grep}" = "" ]; then
 else
     echo "Updating..."
     echo -e "${borg_task}"
-    sed -i '/borg.sh/c'${borg_task} ${CRONTAB_FILE}
+    sed -i '/borg_backup.sh/c'${borg_task} ${CRONTAB_FILE}
 fi
 
 exec "$@"

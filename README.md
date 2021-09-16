@@ -36,10 +36,12 @@ The following are the environment variables to be defined:
 | BOT_TOKEN     | Token of the bot through which we will receive Telegram notifications. | 123:ABC |
 | CHAT_ID       | Identifier of the user or group that will receive Telegram notifications.| -123 |
 | PASSPHRASE    | Repository backup passphrase | passphrase |
+| REPO_PATH     | Path of the repository inside the server. This path can be relative or absolute. It should be noted that on the server access may be restricted by *--restrict-to-path* | ./ |
 | KEEP_HOURLY   | * | 4 |
 | KEEP_DAILY    | * | 7 |
 | KEEP_WEEKLY   | * | 4 |
 | KEEP_MONTHLY  | * | 6 |
+| FREQUENCY     | Backup frequency. With values 1, 2, 3, 4, 6, 8 or 12 the backups runs with this frequency. With any other value once a day. | 1 |
 
 \* see [BorgBackup documentation](https://borgbackup.readthedocs.io/en/stable/usage/prune.html) about prune and de KEEP_* flags
 
@@ -67,6 +69,16 @@ In this volume the container look for a file *exclude.txt*, a file with exclude 
 
 This volume is the source to backup.
 
+## Init
+
+If the report doesn't exists you need to initialize a new one. To do this execute:
+
+```sh
+docker exec -it borgclient1 /bin/borg_backup.sh
+```
+
+Borg will ask you for a passphrase, enter it and that's it.
+
 ## Inspired on
 
-https://github.com/MrCaringi/Backups-and-Replication/
+(https://github.com/MrCaringi/Backups-and-Replication/)[https://github.com/MrCaringi/Backups-and-Replication/]

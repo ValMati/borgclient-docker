@@ -12,10 +12,12 @@ services:
           - BOT_TOKEN=123:ABC
           - CHAT_ID=-123
           - PASSPHRASE=passphrase
+          - REPO_PATH=./
           - KEEP_HOURLY=4
           - KEEP_DAILY=7
           - KEEP_WEEKLY=4
           - KEEP_MONTHLY=6
+          - FREQUENCY=1
         volumes:
           - ./ssh_keys:/root/.ssh
           - ./log/:/log
