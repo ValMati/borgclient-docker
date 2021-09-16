@@ -41,6 +41,7 @@ The following are the environment variables to be defined:
 | KEEP_DAILY    | * | 7 |
 | KEEP_WEEKLY   | * | 4 |
 | KEEP_MONTHLY  | * | 6 |
+| FREQUENCY     | Backup frequency. With values 1, 2, 3, 4, 6, 8 or 12 the backups runs with this frequency. With any other value once a day. | 1 |
 
 \* see [BorgBackup documentation](https://borgbackup.readthedocs.io/en/stable/usage/prune.html) about prune and de KEEP_* flags
 

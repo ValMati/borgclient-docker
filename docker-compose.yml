@@ -17,6 +17,7 @@ services:
           - KEEP_DAILY=7
           - KEEP_WEEKLY=4
           - KEEP_MONTHLY=6
+          - FREQUENCY=1
         volumes:
           - ./ssh_keys:/root/.ssh
           - ./log/:/log
