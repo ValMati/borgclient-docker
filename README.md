@@ -74,7 +74,7 @@ This volume is the source to backup.
 If the report doesn't exists you need to initialize a new one. To do this execute:
 
 ```sh
-docker exec -it borgclient1 /bin/borg_backup.sh
+docker exec -it borgclient1 /bin/borg_init.sh
 ```
 
 Borg will ask you for a passphrase, enter it and that's it.
